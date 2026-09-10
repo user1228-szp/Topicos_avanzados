@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+.env
+APP/spotify_songs.csv
