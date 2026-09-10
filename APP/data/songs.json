@@ -1,0 +1,65 @@
+[
+    {
+        "id": 1,
+        "title": "bohemia rapsory",
+        "artista": "queen",
+        "album": "a night at the opera",
+        "year": 1975,
+        "genero": "rock",
+        "duration": 354
+    },
+    {
+        "id": 2,
+        "title": "stairway to heaven",
+        "artista": "led zeppelin",
+        "album": "led zeppelin iv",
+        "year": 1971,
+        "genero": "rock",
+        "duration": 482
+    },
+    {
+        "id": 3,
+        "title": "imagine",
+        "artista": "john lennon",
+        "album": "imagine",
+        "year": 1971,
+        "genero": "rock",
+        "duration": 183
+    },
+    {
+        "id": 4,
+        "title": "smells like teen spirit",
+        "artista": "nirvana",
+        "album": "nevermind",
+        "year": 1991,
+        "genero": "grunge",
+        "duration": 301
+    },
+    {
+        "id": 5,
+        "title": "like a rolling stone",
+        "artista": "bob dylan",
+        "album": "highway 61 revisited",
+        "year": 1965,
+        "genero": "folk rock",
+        "duration": 369
+    },
+    {
+        "id": 6,
+        "title": "hotel california",
+        "artista": "eagles",
+        "album": "hotel california",
+        "year": 1976,
+        "genero": "rock",
+        "duration": 390
+    },
+    {
+        "id": 7,
+        "title": "hotel california_2",
+        "artista": "eagles",
+        "album": "hotel california",
+        "year": 1976,
+        "genero": "rock",
+        "duration": 390
+    }
+]
