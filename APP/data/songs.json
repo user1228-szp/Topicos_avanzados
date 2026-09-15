@@ -47,10 +47,10 @@
     {
         "id": 6,
         "title": "hotel",
-        "artista": "pedro",
-        "album": "hotel california",
+        "artista": "juan",
+        "album": "california",
         "year": 1976,
-        "genero": "POP",
+        "genero": "ROCK",
         "duration": 390
     }
 ]
