@@ -46,20 +46,11 @@
     },
     {
         "id": 6,
-        "title": "hotel california",
-        "artista": "eagles",
+        "title": "hotel",
+        "artista": "pedro",
         "album": "hotel california",
         "year": 1976,
-        "genero": "rock",
-        "duration": 390
-    },
-    {
-        "id": 7,
-        "title": "hotel california_2",
-        "artista": "eagles",
-        "album": "hotel california",
-        "year": 1976,
-        "genero": "rock",
+        "genero": "POP",
         "duration": 390
     }
 ]

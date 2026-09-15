@@ -18,7 +18,7 @@ songs = canciones
 print(canciones)
 
 
-def guardar_canciones(canciones):
+def songs_saved(canciones):
     ruta_datos = Path(__file__).parent / "data" / "songs.json"
 
     with open(ruta_datos, "w", encoding="utf-8") as f:
@@ -48,7 +48,25 @@ def health():
 def listar_canciones():
     artista = request.args.get("artista")
     print(artista)
-    return jsonify({"canciones": []})
+
+    songs = canciones
+
+    if artista:
+        songs = [
+            song for song in canciones
+            if artista.lower() in song["artista"].lower()
+        ]
+
+    return jsonify({"canciones": songs})
+
+@app.get("/canciones/<int:song_id>")
+def get_cancion_por_id(song_id):
+    cancion = busqueda_canciones(song_id)
+
+    if cancion is None:
+        abort(404, description="Canción no encontrada")
+
+    return jsonify(cancion)
 
 @app.post("/canciones")
 def crear_cancion():
@@ -90,42 +108,100 @@ def crear_cancion():
     }
 
     songs.append(nueva_cancion)
-    guardar_canciones(songs)
+    songs_saved(songs)
 
     return jsonify(nueva_cancion), 201
 
-
 @app.put("/canciones/<int:song_id>")
-def update_songs(id):
+def update_songs(song_id):
     data = request.get_json()
 
     if not data:
-        return jsonify({"mensaje": "No hay cancion"}), 400 
+        return jsonify({"mensaje": "No hay datos de la canción"}), 400
 
-    for i, cancion in enumerate(canciones):
-        if cancion["id"] == id:
-            datos_obligatorios = ["titulo", "artista", "album", "year", "genero", "duration"]
+    songs = cargar_canciones()
+    datos_obligatorios = [
+        "title",
+        "artista",
+        "album",
+        "year",
+        "genero",
+        "duration"
+    ]
 
+    for i, cancion in enumerate(songs):
+
+        if cancion["id"] == song_id:
             for campo in datos_obligatorios:
                 if campo not in data:
-                    return jsonify({"mensaje": f"Falta el campo obligatorio: {campo}"}), 400
+                    return jsonify({ "mensaje": f"Falta el campo obligatorio: {campo}"}), 400
 
-                updates_song = {
-                    "id": id,
-                    "titulo": data["titulo"],
-                    "artista": data["artista"],
-                    "album": data["album"],
-                    "year": data["year"],
-                    "genero": data["genero"],
-                    "duration": data["duration"]
-                }
+            update_song = {
+                "id": song_id,
+                "title": data["title"],
+                "artista": data["artista"],
+                "album": data["album"],
+                "year": data["year"],
+                "genero": data["genero"],
+                "duration": data["duration"]
+            }
 
-                songs[i] = updates_song
-                guardar_canciones(songs)
+            songs[i] = update_song
+            songs_saved(songs)
 
-                return jsonify({"mensaje": "Canción actualizada", "cancion": updates_song}), 200
-            abort(404, description="Canción no encontrada") 
+            return jsonify({
+                "mensaje": "Canción actualizada",
+                "cancion": update_song
+            }), 200
 
+    abort(404, description="Canción no encontrada")
+
+@app.patch("/canciones/<int:song_id>")
+def patch_song(song_id):
+
+    data = request.get_json()
+
+    if not data:
+        return jsonify({
+            "mensaje": "No hay datos de la canción"
+        }), 400
+
+    songs = cargar_canciones()
+
+    datos_permitidos = [
+        "title",
+        "artista",
+        "album",
+        "year",
+        "genero",
+        "duration"
+    ]
+
+    for dato in data:
+        if dato not in datos_permitidos:
+            return jsonify({"mensaje": f"Campo no permitido: {dato}"}), 400
+
+    for song in songs:
+        if song["id"] == song_id:
+            song.update(data)
+            songs_saved(songs)
+
+            return jsonify({"mensaje": "Canción actualizada parcialmente","cancion": song }), 200
+
+    abort(404, description="Canción no encontrada")
+
+
+@app.delete("/canciones/<int:song_id>")
+def delete_song(song_id):
+    songs = cargar_canciones()
+
+    for i, song in enumerate(songs):
+        if song["id"] == song_id:
+            deleted_song = songs.pop(i)
+            songs_saved(songs)
+            return jsonify({"mensaje": "Canción eliminada", "cancion": deleted_song}), 200
+
+    abort(404, description="Canción no encontrada")
 
 
 @app.route("/songs/<int:song_id>")
