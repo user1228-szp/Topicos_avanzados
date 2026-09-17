@@ -7,8 +7,8 @@ import json
 
 app = Flask(__name__)
 app.register_blueprint(canciones_bp)
-df = pd.read_csv("spotify_songs.csv")
 
+df = pd.read_json("data\songs.json", orient="records")
 @app.route("/")
 def home():
     return jsonify({

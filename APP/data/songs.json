@@ -37,12 +37,12 @@
     },
     {
         "id": 5,
-        "title": "like a rolling stone",
-        "artista": "bob dylan",
-        "album": "highway 61 revisited",
-        "year": 1965,
-        "genero": "folk rock",
-        "duration": 369
+        "title": "Hotel California",
+        "artista": "Eagles",
+        "album": "Hotel California",
+        "year": 1976,
+        "genero": "Rock",
+        "duration": "6:31"
     },
     {
         "id": 6,
